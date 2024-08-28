@@ -1,7 +1,7 @@
-import { Form } from "./components/form";
+import { UserPost } from "./components/userpost";
 
 function App() {
-  return <Form />
+  return <UserPost />;
 }
 
 export default App;
