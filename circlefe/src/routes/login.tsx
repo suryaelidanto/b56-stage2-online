@@ -1,16 +1,12 @@
 import { LoginForm } from "@/features/auth/components/login-form";
+import { Box } from "@chakra-ui/react";
 
 export default function LoginRoute() {
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+    <Box>
+      <Box display="flex" justifyContent="center">
         <LoginForm />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

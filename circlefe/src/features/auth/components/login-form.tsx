@@ -1,13 +1,19 @@
+import { Box, Button, Text } from "@chakra-ui/react";
 import { useLoginForm } from "../hooks/use-login-form";
+import { Input } from "@chakra-ui/react";
 
 export function LoginForm() {
   const { handleChange, handleSubmit } = useLoginForm();
 
   return (
-    <div>
-      <h1 style={{ color: "#04A51E" }}>Circle</h1>
-      <h1>Login to Circle</h1>
-      <div
+    <Box>
+      <Text as="h1" fontSize={50} color={"brand.green"}>
+        Circle
+      </Text>
+      <Text as="h1" fontSize={30}>
+        Login to Circle
+      </Text>
+      <Box
         style={{
           display: "flex",
           flexDirection: "column",
@@ -15,33 +21,35 @@ export function LoginForm() {
           width: "300px",
         }}
       >
-        <input
+        <Input
           name="email"
           onChange={handleChange}
           type="email"
           placeholder="Email"
         />
-        <input
+        <Input
           name="password"
           onChange={handleChange}
           type="password"
           placeholder="Password"
         />
-        <button
+        <Button
           onClick={handleSubmit}
-          style={{
-            backgroundColor: "#04A51E",
-            padding: "20px",
-            color: "white",
-            borderRadius: "5px",
-          }}
+          backgroundColor="brand.green"
+          _hover={{ backgroundColor: "brand.green-disabled" }}
+          padding="20px"
+          color="white"
+          borderRadius="5px"
         >
           Login
-        </button>
-      </div>
-      <p>
-        Don't have an account yet? <span style={{ color: "#04A51E" }}>Create account</span>
-      </p>
-    </div>
+        </Button>
+      </Box>
+      <Text>
+        Don't have an account yet?
+        <Text as="span" color="brand.green">
+          Create account
+        </Text>
+      </Text>
+    </Box>
   );
 }

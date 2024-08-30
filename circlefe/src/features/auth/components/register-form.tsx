@@ -1,53 +1,52 @@
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { useRegisterForm } from "../hooks/use-register-form";
 
 export function RegisterForm() {
   const { handleChange, handleSubmit } = useRegisterForm();
 
   return (
-    <div>
-      <h1 style={{ color: "#04A51E" }}>Circle</h1>
-      <h1>Create account Circle</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          width: "300px",
-        }}
-      >
-        <input
+    <Box>
+      <Text as="h1" fontSize={50} color={"brand.green"}>
+        Circle
+      </Text>
+      <Text as="h1" fontSize={30}>
+        Create account Circle
+      </Text>
+      <Box display="flex" flexDirection="column" gap="10px" width="300px">
+        <Input
           name="fullName"
           onChange={handleChange}
           type="text"
           placeholder="Full Name"
         />
-        <input
+        <Input
           name="email"
           onChange={handleChange}
           type="email"
           placeholder="Email"
         />
-        <input
+        <Input
           name="password"
           onChange={handleChange}
           type="password"
           placeholder="Password"
         />
-        <button
+        <Button
           onClick={handleSubmit}
-          style={{
-            backgroundColor: "#04A51E",
-            padding: "20px",
-            color: "white",
-            borderRadius: "5px",
-          }}
+          backgroundColor="brand.green"
+          padding="20px"
+          color="white"
+          borderRadius="5px"
         >
           Create
-        </button>
-      </div>
-      <p>
-        Already have account? <span style={{ color: "#04A51E" }}>Login</span>
-      </p>
-    </div>
+        </Button>
+      </Box>
+      <Text>
+        Already have account?
+        <Text as="span" color="brand.green">
+          Login
+        </Text>
+      </Text>
+    </Box>
   );
 }

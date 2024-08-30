@@ -1,16 +1,12 @@
 import { RegisterForm } from "@/features/auth/components/register-form";
+import { Box } from "@chakra-ui/react";
 
 export default function RegisterRoute() {
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+    <Box>
+      <Box display="flex" justifyContent="center">
         <RegisterForm />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
