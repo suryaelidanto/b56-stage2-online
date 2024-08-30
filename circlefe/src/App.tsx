@@ -1,7 +1,7 @@
-import { UserPost } from "./components/userpost";
+import LoginRoute from "./routes/login";
 
 function App() {
-  return <UserPost />;
+  return <LoginRoute />;
 }
 
 export default App;
