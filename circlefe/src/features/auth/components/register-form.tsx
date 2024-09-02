@@ -1,8 +1,10 @@
 import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { useRegisterForm } from "../hooks/use-register-form";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterForm() {
   const { handleChange, handleSubmit } = useRegisterForm();
+  const navigate = useNavigate()
 
   return (
     <Box>
@@ -43,7 +45,7 @@ export function RegisterForm() {
       </Box>
       <Text>
         Already have account?
-        <Text as="span" color="brand.green">
+        <Text as="span" color="brand.green" onClick={() => navigate("/login")}>
           Login
         </Text>
       </Text>

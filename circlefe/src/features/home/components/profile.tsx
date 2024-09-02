@@ -1,3 +1,8 @@
+import { AuthContext } from "@/context/auth";
+import { useContext } from "react";
+
 export function Profile() {
-    return <h1>Profile</h1>
+  const { state } = useContext(AuthContext);
+
+  return <h1>{state?.user?.email}</h1>;
 }

@@ -1,5 +1,5 @@
-import { Home } from "@/features/app/components/home";
-import { AppLayout } from "@/features/app/layouts/app-layout";
+import { Home } from "@/features/home/components/home";
+import { AppLayout } from "@/features/home/layouts/app-layout";
 
 export default function HomeRoute() {
   return (

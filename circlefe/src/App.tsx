@@ -1,9 +1,7 @@
-import HomeRoute from "./routes/home";
-import LoginRoute from "./routes/login";
-import ProfileRoute from "./routes/profile";
+import { AppRouter } from "./routes";
 
 function App() {
-  return <ProfileRoute />;
+  return <AppRouter />;
 }
 
 export default App;
