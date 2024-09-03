@@ -1,11 +1,9 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { useLoginForm } from "../hooks/use-login-form";
-import { Input } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { ChakraLink } from "@/components/link";
 
 export function LoginForm() {
   const { handleChange, handleSubmit } = useLoginForm();
-  const navigate = useNavigate();
 
   return (
     <Box>
@@ -48,9 +46,7 @@ export function LoginForm() {
       </Box>
       <Text>
         Don't have an account yet?
-        <Text as="span" color="brand.green" onClick={() => navigate("/register")}>
-          Create account
-        </Text>
+        <ChakraLink to="/register" color="brand.green">Create an account</ChakraLink>
       </Text>
     </Box>
   );

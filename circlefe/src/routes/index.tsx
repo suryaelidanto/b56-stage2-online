@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeRoute from "./home";
 import LoginRoute from "./login";
-import RegisterRoute from "./register";
 import ProfileRoute from "./profile";
+import RegisterRoute from "./register";
 
 export function AppRouter() {
   const router = createBrowserRouter([
