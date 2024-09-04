@@ -1,25 +1,46 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Text, Spinner } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { RegisterFormInputs, registerSchema } from "../schemas/register";
+import { setUser } from "@/store/auth-slice";
+import { useAppDispatch, useAppSelector } from "@/hooks/use-store";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterForm() {
-  // const { handleChange, handleSubmit } = useRegisterForm();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    setValue,
   } = useForm<RegisterFormInputs>({
     resolver: zodResolver(registerSchema),
   });
 
-  function onSubmit(data: RegisterFormInputs) {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  async function onSubmit({ email, fullName }: RegisterFormInputs) {
+    localStorage.setItem("id", "1");
+    localStorage.setItem("email", email);
+    localStorage.setItem("fullName", fullName);
+
+    dispatch(
+      setUser({
+        id: 1,
+        email,
+        fullName,
+      })
+    );
+
+    navigate("/");
   }
 
   return (
     <Box>
+      <Text>{JSON.stringify(user)}</Text>
       <Text as="h1" fontSize={50} color={"brand.green"}>
         Circle
       </Text>
@@ -57,8 +78,22 @@ export function RegisterForm() {
             padding="20px"
             color="white"
             borderRadius="5px"
+            isDisabled={isSubmitting}
           >
-            Create
+            {isSubmitting ? <Spinner /> : "Create"}
+          </Button>
+          <Button
+            backgroundColor="brand.green"
+            padding="20px"
+            color="white"
+            borderRadius="5px"
+            onClick={() => {
+              setValue("email", "test@gmail.com");
+              setValue("fullName", Date.now().toString());
+              setValue("password", "1234");
+            }}
+          >
+            Set Dummy
           </Button>
         </Box>
       </form>
