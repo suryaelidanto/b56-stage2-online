@@ -1,18 +1,26 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/use-store";
-import { fetchDummyUsers, removeUser } from "@/store/auth-slice";
+import { useAuthStore } from "@/store/store";
 import { Button, Text } from "@chakra-ui/react";
 
 export function Home() {
-  const user = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
+  const setUser = useAuthStore((state) => state.setUser);
+  const { id, email, fullName } = useAuthStore((state) => state.currentUser);
 
   return (
     <>
-      <Text>ID: {user.id}</Text>
-      <Text>Email: {user.email}</Text>
-      <Text>FullName: {user.fullName}</Text>
-      <Button onClick={() => dispatch(removeUser())}>Logout</Button>
-      <Button onClick={() => dispatch(fetchDummyUsers())}>Fetch Users</Button>
+      <Text>ID: {id}</Text>
+      <Text>Email: {email}</Text>
+      <Text>FullName: {fullName}</Text>
+      <Button
+        onClick={() =>
+          setUser({
+            id: 1,
+            email: "a@gmail.com",
+            fullName: "a",
+          })
+        }
+      >
+        Login
+      </Button>
     </>
   );
 }
