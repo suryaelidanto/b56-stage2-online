@@ -1,7 +1,15 @@
 import { User } from "@/types/user";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: User = {} as User;
+
+export const fetchDummyUsers = createAsyncThunk(
+  "users/fetchDummyUsers",
+  async () => {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    return response.json();
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -18,6 +26,14 @@ const authSlice = createSlice({
     removeUser() {
       return {} as User;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchDummyUsers.fulfilled, (state, action) => {
+      return {
+        ...state,
+        test: action.payload,
+      };
+    });
   },
 });
 

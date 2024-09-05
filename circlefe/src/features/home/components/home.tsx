@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/use-store";
-import { removeUser } from "@/store/auth-slice";
+import { fetchDummyUsers, removeUser } from "@/store/auth-slice";
 import { Button, Text } from "@chakra-ui/react";
 
 export function Home() {
@@ -12,6 +12,7 @@ export function Home() {
       <Text>Email: {user.email}</Text>
       <Text>FullName: {user.fullName}</Text>
       <Button onClick={() => dispatch(removeUser())}>Logout</Button>
+      <Button onClick={() => dispatch(fetchDummyUsers())}>Fetch Users</Button>
     </>
   );
 }
