@@ -1,28 +1,68 @@
 import { Request, Response } from "express";
-import {
-  getAllUsers,
-  getUserByEmail,
-  getUserById,
-} from "../services/user.service";
+import userService from "../services/user.service";
+import { createUserSchema } from "../utils/schemas/create-user.schema";
 
 class UserController {
   async find(req: Request, res: Response) {
-    const users = await getAllUsers();
-    res.json(users);
+    try {
+      const users = await userService.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      res.json(error);
+    }
   }
 
   async findById(req: Request, res: Response) {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
 
-    const users = await getUserById(Number(id));
-    res.json(users);
+      const users = await userService.getUserById(Number(id));
+      res.json(users);
+    } catch (error) {
+      res.json(error);
+    }
   }
 
   async findByEmail(req: Request, res: Response) {
-    const { email } = req.params;
+    try {
+      const { email } = req.params;
 
-    const users = await getUserByEmail(email);
-    res.json(users);
+      const users = await userService.getUserByEmail(email);
+      res.json(users);
+    } catch (error) {
+      res.json(error);
+    }
+  }
+
+  async create(req: Request, res: Response) {
+    try {
+      const value = await createUserSchema.validateAsync(req.body);
+
+      const users = await userService.createUser(value);
+      res.json(users);
+    } catch (error) {
+      res.json(error);
+    }
+  }
+
+  async update(req: Request, res: Response) {
+    try {
+      const users = await userService.updateUser(req.body);
+      res.json(users);
+    } catch (error) {
+      res.json(error);
+    }
+  }
+
+  async delete(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const users = await userService.deleteUser(Number(id));
+      res.json(users);
+    } catch (error) {
+      res.json(error);
+    }
   }
 }
 
