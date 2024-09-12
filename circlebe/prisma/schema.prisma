@@ -14,10 +14,19 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
   fullName String?
   password String
+  role     RoleEnum @default(MEMBER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+enum RoleEnum {
+  ADMIN
+  MEMBER
 }
