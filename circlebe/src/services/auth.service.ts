@@ -36,7 +36,10 @@ class AuthService {
       } as CustomError;
     }
 
-    const isValidPassword = await bcrypt.compare(data.password, user.password);
+    const isValidPassword = await bcrypt.compare(
+      data.password,
+      user.password as string
+    );
 
     if (!isValidPassword) {
       throw {

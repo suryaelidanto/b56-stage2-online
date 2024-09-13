@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import authController from "../controllers/auth.controller";
 import { HelloController } from "../controllers/hello.controller";
 import userController from "../controllers/user.controller";
@@ -23,3 +23,6 @@ routerV1.post("/auth/check", authentication, authController.check);
 routerV1.get("/dashboard", authentication, authorize("ADMIN"), (req, res) => {
   res.json({ message: "Hello from dashboard!" });
 });
+
+routerV1.get("/google", authController.googleOAuth);
+routerV1.get("/google/callback", authController.googleOAuthCallback);
