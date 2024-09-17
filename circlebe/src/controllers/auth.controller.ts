@@ -1,16 +1,27 @@
-import { Request, Response } from "express";
-import authService from "../services/auth.service";
-import { loginSchema, registerSchema } from "../utils/schemas/auth.schema";
-import axios from "axios";
-import { decode } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
+import axios from "axios";
+import { Request, Response } from "express";
+import jwt, { decode } from "jsonwebtoken";
+import authService from "../services/auth.service";
 import { GoogleOAuthCallback } from "../types/oauth/google";
-import jwt from "jsonwebtoken";
+import { loginSchema, registerSchema } from "../utils/schemas/auth.schema";
 
 const prisma = new PrismaClient();
 
 class AuthController {
   async login(req: Request, res: Response) {
+    /*  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/LoginDTO"
+                    }  
+                }
+            }
+        } 
+    */
+
     try {
       const value = await loginSchema.validateAsync(req.body);
       const user = await authService.login(value);
@@ -21,6 +32,18 @@ class AuthController {
   }
 
   async register(req: Request, res: Response) {
+    /*  #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: {
+                        $ref: "#/components/schemas/RegisterDTO"
+                    }  
+                }
+            }
+        } 
+    */
+
     try {
       const value = await registerSchema.validateAsync(req.body);
       const user = await authService.register(value);

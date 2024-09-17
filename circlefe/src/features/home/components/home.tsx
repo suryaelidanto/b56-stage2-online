@@ -23,8 +23,6 @@ export function Home() {
   >({
     mutationKey: ["createThread"],
     mutationFn: async (data) => {
-      console.log(data);
-      // proses menambahkan thread
       return data;
     },
   });

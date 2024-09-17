@@ -14,9 +14,7 @@ export function useLoginForm() {
     });
   }
 
-  function handleSubmit() {
-    console.log("data login", form);
-  }
+  function handleSubmit() {}
 
   return {
     handleChange,

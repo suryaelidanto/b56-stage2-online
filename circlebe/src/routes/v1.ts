@@ -1,14 +1,11 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import authController from "../controllers/auth.controller";
-import { HelloController } from "../controllers/hello.controller";
 import userController from "../controllers/user.controller";
-import { uploadFile } from "../middlewares/upload-file";
 import { authentication } from "../middlewares/authentication";
 import { authorize } from "../middlewares/authorization";
 
 export const routerV1 = express.Router();
 
-routerV1.get("/", uploadFile, HelloController);
 routerV1.get("/users", userController.find);
 routerV1.get("/users/:id", userController.findById);
 routerV1.get("/users/email/:email", userController.findByEmail);
