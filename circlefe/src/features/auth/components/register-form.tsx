@@ -1,46 +1,13 @@
-import { Box, Button, Input, Text, Spinner } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Box, Button, Input, Spinner, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { RegisterFormInputs, registerSchema } from "../schemas/register";
-import { setUser } from "@/store/auth-slice";
-import { useAppDispatch, useAppSelector } from "@/hooks/use-store";
-import { useNavigate } from "react-router-dom";
+import { useRegisterForm } from "../hooks/use-register-form";
 
 export function RegisterForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setValue,
-  } = useForm<RegisterFormInputs>({
-    resolver: zodResolver(registerSchema),
-  });
-
-  const navigate = useNavigate();
-
-  const user = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-
-  async function onSubmit({ email, fullName }: RegisterFormInputs) {
-    localStorage.setItem("id", "1");
-    localStorage.setItem("email", email);
-    localStorage.setItem("fullName", fullName);
-
-    dispatch(
-      setUser({
-        id: 1,
-        email,
-        fullName,
-      })
-    );
-
-    navigate("/");
-  }
+  const { register, handleSubmit, errors, isSubmitting, onSubmit } =
+    useRegisterForm();
 
   return (
     <Box>
-      <Text>{JSON.stringify(user)}</Text>
       <Text as="h1" fontSize={50} color={"brand.green"}>
         Circle
       </Text>
@@ -81,19 +48,6 @@ export function RegisterForm() {
             isDisabled={isSubmitting}
           >
             {isSubmitting ? <Spinner /> : "Create"}
-          </Button>
-          <Button
-            backgroundColor="brand.green"
-            padding="20px"
-            color="white"
-            borderRadius="5px"
-            onClick={() => {
-              setValue("email", "test@gmail.com");
-              setValue("fullName", Date.now().toString());
-              setValue("password", "1234");
-            }}
-          >
-            Set Dummy
           </Button>
         </Box>
       </form>

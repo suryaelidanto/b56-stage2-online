@@ -27,7 +27,7 @@ class AuthController {
       const user = await authService.login(value);
       res.json(user);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   }
 
@@ -49,7 +49,7 @@ class AuthController {
       const user = await authService.register(value);
       res.json(user);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   }
 
@@ -58,7 +58,7 @@ class AuthController {
       const user = (req as any).user;
       res.json(user);
     } catch (error) {
-      res.json(error);
+      res.status(500).json(error);
     }
   }
 

@@ -1,5 +1,5 @@
 import { useFetchData } from "@/hooks/use-fetch-data";
-import { Post } from "@/types/user";
+import { Post } from "@/entities/user";
 
 export function UserPost() {
   const { data: posts } = useFetchData<Post>({

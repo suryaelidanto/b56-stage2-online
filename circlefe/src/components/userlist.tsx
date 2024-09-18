@@ -1,5 +1,5 @@
 import { useFetchData } from "../hooks/use-fetch-data";
-import { User } from "../types/user";
+import { User } from "../entities/user";
 
 export function UserList() {
   const { data: users } = useFetchData<User>({

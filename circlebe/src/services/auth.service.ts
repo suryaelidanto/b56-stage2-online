@@ -1,22 +1,24 @@
-import { User, PrismaClient } from "@prisma/client";
-import { LoginDTO, RegisterDTO } from "../dto/auth.dto";
+import { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { LoginDTO, RegisterDTO } from "../dto/auth.dto";
 import { CustomError, CustomErrorCode } from "../types/error";
 
 const prisma = new PrismaClient();
 
 class AuthService {
-  async register(data: RegisterDTO): Promise<User | null> {
+  async register(data: RegisterDTO): Promise<Omit<User, "password"> | null> {
     const salt = 10;
     const hashedPassword = await bcrypt.hash(data.password, salt);
 
-    return await prisma.user.create({
+    const { password, ...result } = await prisma.user.create({
       data: {
         ...data,
         password: hashedPassword,
       },
     });
+
+    return result;
   }
 
   async login(

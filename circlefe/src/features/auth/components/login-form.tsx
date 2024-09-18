@@ -3,7 +3,7 @@ import { useLoginForm } from "../hooks/use-login-form";
 import { ChakraLink } from "@/components/link";
 
 export function LoginForm() {
-  const { handleChange, handleSubmit } = useLoginForm();
+  const { register, onSubmit, handleSubmit } = useLoginForm();
 
   return (
     <Box>
@@ -21,32 +21,30 @@ export function LoginForm() {
           width: "300px",
         }}
       >
-        <Input
-          name="email"
-          onChange={handleChange}
-          type="email"
-          placeholder="Email"
-        />
-        <Input
-          name="password"
-          onChange={handleChange}
-          type="password"
-          placeholder="Password"
-        />
-        <Button
-          onClick={handleSubmit}
-          backgroundColor="brand.green"
-          _hover={{ backgroundColor: "brand.green-disabled" }}
-          padding="20px"
-          color="white"
-          borderRadius="5px"
-        >
-          Login
-        </Button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input {...register("email")} type="email" placeholder="Email" />
+          <Input
+            {...register("password")}
+            type="password"
+            placeholder="Password"
+          />
+          <Button
+            type="submit"
+            backgroundColor="brand.green"
+            _hover={{ backgroundColor: "brand.green-disabled" }}
+            padding="20px"
+            color="white"
+            borderRadius="5px"
+          >
+            Login
+          </Button>
+        </form>
       </Box>
       <Text>
         Don't have an account yet?
-        <ChakraLink to="/register" color="brand.green">Create an account</ChakraLink>
+        <ChakraLink to="/register" color="brand.green">
+          Create an account
+        </ChakraLink>
       </Text>
     </Box>
   );

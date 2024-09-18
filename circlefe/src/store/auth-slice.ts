@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@/entities/user";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: User = {} as User;

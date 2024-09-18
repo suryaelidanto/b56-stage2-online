@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@/entities/user";
 import React, { createContext, useReducer } from "react";
 
 interface AuthContextType {
