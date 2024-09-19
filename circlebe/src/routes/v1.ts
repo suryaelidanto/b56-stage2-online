@@ -15,7 +15,7 @@ routerV1.delete("/users/:id", userController.delete);
 
 routerV1.post("/auth/login", authController.login);
 routerV1.post("/auth/register", authController.register);
-routerV1.post("/auth/check", authentication, authController.check);
+routerV1.get("/auth/check", authentication, authController.check);
 
 routerV1.get("/dashboard", authentication, authorize("ADMIN"), (req, res) => {
   res.json({ message: "Hello from dashboard!" });

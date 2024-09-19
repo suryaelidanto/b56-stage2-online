@@ -1,7 +1,7 @@
-import { User } from "@/entities/user";
+import { UserStoreDTO } from "@/features/auth/types/dto";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: User = {} as User;
+const initialState: UserStoreDTO = {} as UserStoreDTO;
 
 export const fetchDummyUsers = createAsyncThunk(
   "users/fetchDummyUsers",
@@ -15,16 +15,17 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<User>) {
+    setUser(state, action: PayloadAction<UserStoreDTO>) {
       return {
         ...state,
         id: action.payload.id,
         fullName: action.payload.fullName,
         email: action.payload.email,
+        role: action.payload.role,
       };
     },
     removeUser() {
-      return {} as User;
+      return {} as UserStoreDTO;
     },
   },
   extraReducers: (builder) => {

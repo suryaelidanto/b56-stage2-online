@@ -1,3 +1,7 @@
-// import axios from 'axios'
+import axios from "axios";
 
-// const API = axios.create(``)
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+
+export const apiV1 = axios.create({
+  baseURL: `${baseURL}/api/v1`,
+});

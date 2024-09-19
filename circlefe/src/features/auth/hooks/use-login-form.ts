@@ -2,6 +2,7 @@ import { useAppDispatch } from "@/hooks/use-store";
 import { setUser } from "@/store/auth-slice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { LoginFormInputs, loginSchema } from "../schemas/login";
@@ -31,21 +32,11 @@ export function useLoginForm() {
         password: data.password,
       });
 
-      const {
-        user: { id, email, fullName },
-        token,
-      } = response.data;
+      const { user, token } = response.data;
 
-      dispatch(
-        setUser({
-          id,
-          email,
-          fullName,
-        })
-      );
+      dispatch(setUser(user));
 
-      //TODO: use js cookie
-      localStorage.setItem("token", token);
+      Cookies.set("token", token, { expires: 1 });
 
       navigate("/");
     } catch (error) {

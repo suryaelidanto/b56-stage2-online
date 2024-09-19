@@ -5,6 +5,8 @@ import jwt, { decode } from "jsonwebtoken";
 import authService from "../services/auth.service";
 import { GoogleOAuthCallback } from "../types/oauth/google";
 import { loginSchema, registerSchema } from "../utils/schemas/auth.schema";
+import { LoginDTO } from "../dto/auth.dto";
+import { CustomError, CustomErrorCode } from "../types/error";
 
 const prisma = new PrismaClient();
 
@@ -46,7 +48,8 @@ class AuthController {
 
     try {
       const value = await registerSchema.validateAsync(req.body);
-      const user = await authService.register(value);
+      await authService.register(value);
+      const user = await authService.login(value);
       res.json(user);
     } catch (error) {
       res.status(500).json(error);

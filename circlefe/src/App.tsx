@@ -1,5 +1,8 @@
+import Cookies from "js-cookie";
 import { useEffect } from "react";
+import { UserStoreDTO } from "./features/auth/types/dto";
 import { useAppDispatch } from "./hooks/use-store";
+import { apiV1 } from "./libs/api";
 import { AppRouter } from "./routes";
 import { setUser } from "./store/auth-slice";
 
@@ -7,17 +10,16 @@ function App() {
   const dispatch = useAppDispatch();
 
   async function checkAuthentication() {
-    const id = Number(localStorage.getItem("id") as string);
-    const email = localStorage.getItem("email") as string;
-    const fullName = localStorage.getItem("fullName") as string;
+    const { data } = await apiV1.get<
+      null,
+      { data: UserStoreDTO }
+    >("/auth/check", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    });
 
-    dispatch(
-      setUser({
-        id,
-        email,
-        fullName,
-      })
-    );
+    dispatch(setUser(data));
   }
 
   useEffect(() => {
