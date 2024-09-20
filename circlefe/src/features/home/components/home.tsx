@@ -1,56 +1,55 @@
-import { Avatar, Box, Button, Text } from "@chakra-ui/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { CreateThreadDTO, Thread } from "../types/thread";
+import { Avatar, Box, Button, Image, Input, Text } from "@chakra-ui/react";
+import { useHome } from "../hooks/useHome";
 
 export function Home() {
-  async function getThreads() {
-    const response = await axios.get(
-      `https://api.npoint.io/71a12152a5b230dd1e69`
-    );
-    return response.data;
-  }
+  const {
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    onSubmit,
+    data,
+    isLoading,
+  } = useHome();
 
-  const { data } = useQuery<null, Error, Thread[]>({
-    queryKey: ["threads"],
-    queryFn: getThreads,
-  });
-
-  const { mutateAsync: createThread, data: createdThreadData } = useMutation<
-    CreateThreadDTO, // tipe data yang dikembalikan
-    Error, // tipe data errornya
-    CreateThreadDTO // tipe data request / payloadnya
-  >({
-    mutationKey: ["createThread"],
-    mutationFn: async (data) => {
-      return data;
-    },
-  });
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <>
-      <Text>{JSON.stringify(createdThreadData)}</Text>
-      <Button
-        onClick={() =>
-          createThread({
-            content: "test",
-            image: "mantap",
-          })
-        }
-      >
-        Create Thread
-      </Button>
+    <Box padding={"30px"} backgroundColor={"brand.background"} flex="1">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box gap={"5px"} display={"flex"} flexDirection={"column"}>
+          <Input {...register("content")} placeholder="content" />
+          {errors.content && (
+            <p style={{ color: "red", margin: 0 }}>{errors.content.message}</p>
+          )}
+
+          <Input {...register("image")} placeholder="image..." />
+          {errors.image && (
+            <p style={{ color: "red", margin: 0 }}>{errors.image.message}</p>
+          )}
+
+          <Button type="submit" backgroundColor={"brand.green"}>
+            {isSubmitting ? "Submitting..." : "Create Thread"}
+          </Button>
+        </Box>
+      </form>
       {data?.map((thread) => {
         return (
-          <Box display={"flex"} gap={"5px"} marginBottom={"20px"}>
-            <Avatar src={thread.image} />
+          <Box display={"flex"} gap={"5px"} marginY={"20px"}>
+            <Avatar src={thread.user.image} />
             <Box display={"flex"} flexDirection={"column"}>
               <Box display={"flex"} gap={"5px"}>
-                <Text>{thread.fullName}</Text>
-                <Text>@{thread.username}</Text>
-                <Text>@{thread.createdAt}</Text>
+                <Text>{thread.user.fullName}</Text>
+                <Text>@{thread.user.fullName}</Text>
+                <Text>{thread.createdAt.toString()}</Text>
               </Box>
-              <Text>{thread.content}</Text>
+              <Image
+                src={thread.image}
+                width={"300px"}
+                height={"300px"}
+                objectFit={"cover"}
+              />
+              <Text color={"white"}>{thread.content}</Text>
               <Box display={"flex"} gap={"5px"}>
                 <Button>Likes : {thread.likesCount}</Button>
                 <Button>Replies : {thread.repliesCount}</Button>
@@ -59,6 +58,6 @@ export function Home() {
           </Box>
         );
       })}
-    </>
+    </Box>
   );
 }

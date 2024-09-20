@@ -6,13 +6,6 @@ import { CustomError, CustomErrorCode } from "../types/error";
 
 const prisma = new PrismaClient();
 
-type SuccessResponse = {
-  code: string;
-  status: string;
-  message: string;
-  data: any;
-};
-
 class AuthService {
   async register(data: RegisterDTO): Promise<Omit<User, "password"> | null> {
     const salt = 10;

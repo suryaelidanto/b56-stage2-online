@@ -10,14 +10,14 @@ function App() {
   const dispatch = useAppDispatch();
 
   async function checkAuthentication() {
-    const { data } = await apiV1.get<
-      null,
-      { data: UserStoreDTO }
-    >("/auth/check", {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-    });
+    const { data } = await apiV1.get<null, { data: UserStoreDTO }>(
+      "/auth/check",
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      }
+    );
 
     dispatch(setUser(data));
   }

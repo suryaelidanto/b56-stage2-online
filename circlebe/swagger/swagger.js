@@ -21,6 +21,30 @@ const doc = {
   ],
   components: {
     "@schemas": {
+      CreateThreadDTO: {
+        type: "object",
+        properties: {
+          content: {
+            type: "string",
+          },
+          image: {
+            type: "string",
+          },
+        },
+        required: ["content", "image"],
+      },
+      UpdateThreadDTO: {
+        type: "object",
+        properties: {
+          content: {
+            type: "string",
+          },
+          image: {
+            type: "string",
+          },
+        },
+        required: ["content", "image"],
+      },
       LoginDTO: {
         type: "object",
         properties: {
