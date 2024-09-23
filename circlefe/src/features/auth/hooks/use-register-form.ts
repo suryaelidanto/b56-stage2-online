@@ -1,4 +1,5 @@
 import { useAppDispatch } from "@/hooks/use-store";
+import { apiV1 } from "@/libs/api";
 import { setUser } from "@/store/auth-slice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -23,11 +24,11 @@ export function useRegisterForm() {
 
   async function onSubmit(data: RegisterFormInputs) {
     try {
-      const response = await axios.post<
+      const response = await apiV1.post<
         null,
         { data: RegisterResponseDTO },
         RegisterRequestDTO
-      >("http://localhost:5000/api/v1/auth/register", {
+      >("/auth/register", {
         email: data.email,
         fullName: data.fullName,
         password: data.password,
