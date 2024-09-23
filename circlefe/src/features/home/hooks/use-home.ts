@@ -20,7 +20,12 @@ export function useHome() {
 
   async function getThreads() {
     const response = await apiV1.get<null, { data: ThreadEntity[] }>(
-      "/threads"
+      "/threads",
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
     );
     return response.data;
   }

@@ -1,5 +1,5 @@
-import { Box, Button, Input } from "@chakra-ui/react";
-import { useHome } from "../hooks/useHome";
+import { Avatar, Box, Button, Image, Input, Text } from "@chakra-ui/react";
+import { useHome } from "../hooks/use-home";
 
 export function Home() {
   const {
@@ -8,6 +8,7 @@ export function Home() {
     errors,
     isSubmitting,
     onSubmit,
+    data,
     isLoading,
   } = useHome();
 
@@ -32,9 +33,9 @@ export function Home() {
           </Button>
         </Box>
       </form>
-      {/* {data?.map((thread) => {
+      {data?.map((thread) => {
         return (
-          <Box display={"flex"} gap={"5px"} marginY={"20px"}>
+          <Box display={"flex"} gap={"5px"} marginY={"20px"} key={thread.id}>
             <Avatar src={thread.user.image} />
             <Box display={"flex"} flexDirection={"column"}>
               <Box display={"flex"} gap={"5px"}>
@@ -56,7 +57,7 @@ export function Home() {
             </Box>
           </Box>
         );
-      })} */}
+      })}
     </Box>
   );
 }
