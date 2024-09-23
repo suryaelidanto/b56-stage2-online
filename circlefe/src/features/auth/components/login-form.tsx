@@ -1,6 +1,6 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Link, Text } from "@chakra-ui/react";
 import { useLoginForm } from "../hooks/use-login-form";
-import { ChakraLink } from "@/components/link";
+import { Link as RRLink } from "react-router-dom";
 
 export function LoginForm() {
   const { register, onSubmit, handleSubmit } = useLoginForm();
@@ -42,9 +42,9 @@ export function LoginForm() {
       </Box>
       <Text>
         Don't have an account yet?
-        <ChakraLink to="/register" color="brand.green">
+        <Link as={RRLink} to="/register" color="brand.green">
           Create an account
-        </ChakraLink>
+        </Link>
       </Text>
     </Box>
   );
