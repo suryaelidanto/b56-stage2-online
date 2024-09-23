@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
 import { UserStoreDTO } from "./features/auth/types/dto";
 import { useAppDispatch } from "./hooks/use-store";
 import { apiV1 } from "./libs/api";
@@ -9,22 +9,26 @@ import { setUser } from "./store/auth-slice";
 function App() {
   const dispatch = useAppDispatch();
 
-  async function checkAuthentication() {
-    const { data } = await apiV1.get<null, { data: UserStoreDTO }>(
+  async function getCurrentUser() {
+    const response = await apiV1.get<null, { data: UserStoreDTO }>(
       "/auth/check",
       {
         headers: {
           Authorization: `Bearer ${Cookies.get("token")}`,
+          "ngrok-skip-browser-warning": "true",
         },
       }
     );
 
-    dispatch(setUser(data));
+    dispatch(setUser(response.data));
+
+    return response.data;
   }
 
-  useEffect(() => {
-    checkAuthentication();
-  }, []);
+  useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getCurrentUser,
+  }); // TODO: replace this with another one
 
   return <AppRouter />;
 }
