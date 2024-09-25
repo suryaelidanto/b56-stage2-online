@@ -38,9 +38,13 @@ export function useHome() {
   const queryClient = useQueryClient();
 
   async function createThread(data: CreateThreadDTO) {
+    const formData = new FormData();
+    formData.append("content", data.content);
+    formData.append("image", data.image[0]);
+
     const response = await apiV1.post<null, { data: ThreadEntity }>(
       "/threads",
-      data
+      formData
     );
 
     queryClient.invalidateQueries({ queryKey: ["threads"] });
@@ -49,7 +53,7 @@ export function useHome() {
   }
 
   const { mutateAsync: createThreadAsync } = useMutation<
-    CreateThreadDTO,
+    ThreadEntity,
     Error,
     CreateThreadDTO
   >({

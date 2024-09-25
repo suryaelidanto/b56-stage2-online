@@ -12,7 +12,7 @@ const themeConfig: ThemeOverride = {
     heading: `"Plus Jakarta Sans", sans-serif`,
     body: `"Plus Jakarta Sans", sans-serif`,
     mono: `"Plus Jakarta Sans", sans-serif`,
-  },
+  }
 };
 
 export const theme = extendTheme(themeConfig satisfies ThemeOverride);

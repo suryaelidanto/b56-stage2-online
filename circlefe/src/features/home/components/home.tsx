@@ -18,17 +18,22 @@ export function Home() {
     <Box padding={"30px"} backgroundColor={"brand.background"} flex="1">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box gap={"5px"} display={"flex"} flexDirection={"column"}>
-          <Input {...register("content")} placeholder="content" />
+          <Input {...register("content")} placeholder="content" color="white" />
           {errors.content && (
             <p style={{ color: "red", margin: 0 }}>{errors.content.message}</p>
           )}
 
-          <Input {...register("image")} placeholder="image..." />
+          <Input
+            type="file"
+            {...register("image")}
+            placeholder="image..."
+            color="white"
+          />
           {errors.image && (
             <p style={{ color: "red", margin: 0 }}>{errors.image.message}</p>
           )}
 
-          <Button type="submit" backgroundColor={"brand.green"}>
+          <Button type="submit" backgroundColor={"brand.green"} color="white">
             {isSubmitting ? "Submitting..." : "Create Thread"}
           </Button>
         </Box>
@@ -39,9 +44,9 @@ export function Home() {
             <Avatar src={thread.user.image} />
             <Box display={"flex"} flexDirection={"column"}>
               <Box display={"flex"} gap={"5px"}>
-                <Text>{thread.user.fullName}</Text>
-                <Text>@{thread.user.fullName}</Text>
-                <Text>{thread.createdAt.toString()}</Text>
+                <Text color="white">{thread.user.fullName}</Text>
+                <Text color="white">@{thread.user.fullName}</Text>
+                <Text color="white">{thread.createdAt.toString()}</Text>
               </Box>
               <Image
                 src={thread.image}
